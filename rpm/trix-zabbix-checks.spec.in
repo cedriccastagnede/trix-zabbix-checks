@@ -18,7 +18,7 @@ BuildArch:	noarch
 # ///////////////////////////////////////////////
 # INSTALL REQUIREMENTS
 # ///////////////////////////////////////////////
-Requires:	zabbix-agent
+Requires: zabbix-agent
 
 
 # ///////////////////////////////////////////////
@@ -35,8 +35,23 @@ ClusterVision Zabbix checks
 
 
 %build
+mkdir -p ./virtenv
+pushd ./virtenv
+virtualenv zabbix-api
+source zabbix-api/bin/activate
+pip install zabbix-api
+ZABB_API_FILES="$(pip show -f zabbix-api | awk '/Location/{print $2}')/zabbix_api.*"
+deactivate
+popd
+mkdir zabbix_api
+cp ${ZABB_API_FILES} zabbix_api
 
 %install
+%{__install} -m 755 -d zabbix_api               %{buildroot}%{python_sitelib}/zabbix_api
+echo ${ZABB_API_FILES}
+for f in zabbix_api/*; do
+    %{__install} -m 644 ${f}    %{buildroot}%{python_sitelib}/${f}
+done
 install -m 0755 -d %{buildroot}/var/lib/zabbix
 install -m 0755 -d %{buildroot}/var/lib/zabbix/userparameters
 install -m 0755 userparameters/* %{buildroot}/var/lib/zabbix/userparameters/
@@ -84,6 +99,7 @@ systemctl restart zabbix-agent
 
 %files
 %dir %attr(-,zabbix,zabbix) /var/lib/zabbix/userparameters
+%{python_sitelib}/zabbix_api/*
 %attr(-,zabbix,zabbix) /var/lib/zabbix/userparameters/*
 
 %attr(-,root,root) /etc/zabbix/zabbix_agentd.d/*
