@@ -78,14 +78,6 @@ install -m 0755 externalscripts/* %{buildroot}/usr/lib/zabbix/externalscripts/
 install -m 0755 -d   %{buildroot}/etc/cron.d/
 install -m 0644 gpfs_fileset_usage  %{buildroot}/etc/cron.d/
 
-install -m 0755 -d   %{buildroot}/usr/lib/zabbix/ansible
-install -m 0755 -d   %{buildroot}/usr/lib/zabbix/ansible/library
-install -m 0644 ansible/*.yml %{buildroot}/usr/lib/zabbix/ansible
-install -m 0644 ansible/*.sql %{buildroot}/usr/lib/zabbix/ansible
-install -m 0644 ansible/library/* %{buildroot}/usr/lib/zabbix/ansible/library
-
-
-
 mkdir %{buildroot}/tmp
 touch %{buildroot}/tmp/ipmitool.cache
 touch %{buildroot}/tmp/gpfs_filset_usage
@@ -110,11 +102,8 @@ systemctl restart zabbix-agent
 %attr(-,root,root) /tmp/gpfs_filset_usage
 %attr(-,root,root) /usr/lib/zabbix/templates/*
 %attr(-,root,root) /usr/lib/zabbix/utils/*
-%attr(-,root,root) /usr/lib/zabbix/ansible/*
 %config(noreplace) /etc/cron.d/gpfs_fileset_usage
 
 %doc
-
-
 
 %changelog
