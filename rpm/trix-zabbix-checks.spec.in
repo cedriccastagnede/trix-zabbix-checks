@@ -50,6 +50,7 @@ deactivate
 popd
 mkdir zabbix_api
 cp ${ZABB_API_FILES} zabbix_api
+touch zabbix_api/__init__.py
 
 
 # ///////////////////////////////////////////////
