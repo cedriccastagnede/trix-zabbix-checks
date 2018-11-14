@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>3.4</version>
+    <date>2018-11-14T14:10:49Z</date>
+    <groups>
+        <group>
+            <name>Templates</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>CV role GPFS</template>
+            <name>CV role GPFS</name>
+            <description/>
+            <groups>
+                <group>
+                    <name>Templates</name>
+                </group>
+            </groups>
+            <applications/>
+            <items/>
+            <discovery_rules/>
+            <httptests/>
+            <macros>
+                <macro>
+                    <macro>{$IPMI_FILTER}</macro>
+                    <value>(System Temp|Power|FAN|CPU1 Temp|CPU2 Temp)</value>
+                </macro>
+            </macros>
+            <templates>
+                <template>
+                    <name>CV hw S.M.A.R.T. HDD</name>
+                </template>
+                <template>
+                    <name>CV hw Storcli</name>
+                </template>
+                <template>
+                    <name>CV meta Linux</name>
+                </template>
+            </templates>
+            <screens/>
+        </template>
+    </templates>
+    <triggers>
+        <trigger>
+            <expression>{CV role GPFS:system.cpu.util[,system].avg(5m)}&gt;80</expression>
+            <recovery_mode>0</recovery_mode>
+            <recovery_expression/>
+            <name>CPU System is overloaded on {HOST.NAME}</name>
+            <correlation_mode>0</correlation_mode>
+            <correlation_tag/>
+            <url/>
+            <status>0</status>
+            <priority>1</priority>
+            <description/>
+            <type>0</type>
+            <manual_close>0</manual_close>
+            <dependencies/>
+            <tags/>
+        </trigger>
+    </triggers>
+</zabbix_export>
