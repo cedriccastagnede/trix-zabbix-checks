@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>3.4</version>
+    <date>2018-11-14T14:10:22Z</date>
+    <groups>
+        <group>
+            <name>Templates</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>CV role Compute</template>
+            <name>CV role Compute</name>
+            <description/>
+            <groups>
+                <group>
+                    <name>Templates</name>
+                </group>
+            </groups>
+            <applications/>
+            <items/>
+            <discovery_rules/>
+            <httptests/>
+            <macros/>
+            <templates>
+                <template>
+                    <name>CV app Slurm Compute</name>
+                </template>
+                <template>
+                    <name>CV meta Linux</name>
+                </template>
+            </templates>
+            <screens/>
+        </template>
+    </templates>
+</zabbix_export>
