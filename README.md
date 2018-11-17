@@ -1,10 +1,8 @@
-## Bunch of zabbix checks and templates.
-To install zabbix checks you need to pick an alredy built RPM or build a new one. To build an RPM:
+## A bunch of zabbix checks and templates.
+To install zabbix checks you need to pick an already built RPM or build a new one. To build an RPM:
 
 ```bash
-cd rpm
-./build.sh
-rpmbuild --rebuild  ~/rpmbuild/SRPMS/cv-zabbix-checks-0.9*.src.rpm
+make rpm
 ```
 
 ###GPFS:

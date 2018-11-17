@@ -48,18 +48,15 @@ pip install zabbix-api
 ZABB_API_FILES="$(pip show -f zabbix-api | awk '/Location/{print $2}')/zabbix_api.*"
 deactivate
 popd
-mkdir zabbix_api
-cp ${ZABB_API_FILES} zabbix_api
-touch zabbix_api/__init__.py
-
+cp ${ZABB_API_FILES} .
 
 # ///////////////////////////////////////////////
 # INSTALL
 # ///////////////////////////////////////////////
 %install
 %define _zabb_dir %{_usr}/lib/zabbix
-%{__install} -m 755 -d zabbix_api               %{buildroot}%{python_sitelib}/zabbix_api
-for f in zabbix_api/*; do
+%{__install} -m 755 -d %{buildroot}%{python_sitelib}
+for f in zabbix_api.*; do
     %{__install} -m 644 ${f}    %{buildroot}%{python_sitelib}/${f}
 done
 %{__install} -m 0755 -d %{buildroot}%{_sharedstatedir}/zabbix
@@ -94,7 +91,7 @@ touch %{buildroot}/tmp/gpfs_filset_usage
 
 
 # ///////////////////////////////////////////////
-# CLENUP
+# CLEANUP
 # ///////////////////////////////////////////////
 %clean
 rm -rf %{buildroot}
@@ -112,7 +109,7 @@ systemctl restart zabbix-agent
 # ///////////////////////////////////////////////
 %files
 %dir %attr(-,zabbix,zabbix) %{_sharedstatedir}/zabbix/userparameters
-%{python_sitelib}/zabbix_api/*
+%{python_sitelib}/zabbix_api.*
 %attr(-,zabbix,zabbix) %{_sharedstatedir}/zabbix/userparameters/*
 
 %attr(-,root,root) %{_sysconfdir}/zabbix/zabbix_agentd.d/*
